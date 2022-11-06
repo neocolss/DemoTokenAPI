@@ -60,6 +60,9 @@ Go to Configure-> Pipeline (fill the repository and path of jenkins)
 
 ## 7 - Build the job ##
 After it is finish, you will find the report summry in the job #number -> Workspaces-> target -> surefire-reports -> karate-summary.html
+![token creation results](https://user-images.githubusercontent.com/13651357/200199802-81b27ea4-2860-46f6-868d-ed48bf5f9e09.png)
+![user creation results](https://user-images.githubusercontent.com/13651357/200199803-0016ca6e-0d1c-4339-ac93-908d34258e9b.png)
+
 
 
 ## Conclusion ##
