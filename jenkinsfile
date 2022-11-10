@@ -1,5 +1,8 @@
+/*
 pipeline {
-    agent any
+    agent {
+        dockerfile true
+    }
 
     tools {
         maven "maven38"
@@ -12,8 +15,31 @@ pipeline {
                 git 'https://github.com/neocolss/DemoTokenAPI.git'
 
                 // Run Maven on a Windows agent
-                sh "mvn clean test -Dtest=ExamplesTest"
+                //sh "mvn clean test -Dtest=ExamplesTest"
             }
         }
+        stage('Make image for the project'){
+            steps {
+                sh 'docker build -t testapi .'
+            }
+        }
+
     }
+}
+*/
+#!groovy
+pipeline {
+	agent none
+  stages {
+  	stage('Maven Install') {
+    	agent {
+      	docker {
+        	image 'maven:3.5.0'
+        }
+      }
+      steps {
+      	sh 'mvn clean install'
+      }
+    }
+  }
 }
