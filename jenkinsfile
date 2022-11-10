@@ -6,20 +6,13 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
+        stage('SCM Checkout') {
             steps {
                 // Get code from a GitHub repository
                 git 'https://github.com/neocolss/DemoTokenAPI.git'
 
                 // Run Maven on a Windows agent
-                bat "mvn clean test -Dtest=ExamplesTest"
-            }
-
-            post {
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
-                }
+                sh "mvn clean test -Dtest=ExamplesTest"
             }
         }
     }

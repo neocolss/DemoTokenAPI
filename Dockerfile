@@ -1,4 +1,13 @@
-RUN git clone https://github.com/neocolss/DemoTokenAPI.git
-#FROM maven:3.8.6-jdk-8
+FROM maven:3-jdk-8-alpine
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-#WORKDIR /opt/workdir
+#COPY settings.xml /usr/share/maven/ref/
+COPY pom.xml /tmp/pom.xml
+
+COPY . /usr/src/app
+
+RUN mvn -B -f /tmp/pom.xml -s /usr/share/maven/ref/settings-docker.xml prepare-package -DskipTests
+
+CMD ["mvn", "clean", "test"]
+#CMD ["/usr/src/app/maven_runner.sh"]
