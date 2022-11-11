@@ -18,10 +18,16 @@ To verify the created image `docker images`
 
 2 - Run the image demo-token
 
-`docker run -p 80:8080 demo-token`
+`docker run --rm -d -P  demo-token`   
 
-At this moment we can call the demo-token API from port 80
+(-P to be able for containers to communicate each other, otherwise you will get this message)
+![image](https://user-images.githubusercontent.com/13651357/201325189-5da0c1c7-2b77-4d17-8a14-f06f4c73ccd2.png)
 
+
+Go to CMD and run `docker ps` and note the port generated for the container demo-token (49153 in our case)
+![image](https://user-images.githubusercontent.com/13651357/201325315-ec859e09-9305-4fd5-8e00-6deb30383e66.png)
+
+This port is configured in https://github.com/neocolss/DemoTokenAPI/blob/master/src/test/java/karate-config.js
 ## 3 - Get DemoTokenAPI Project ##
 I used Apache Karate https://github.com/karatelabs/karate : Karate is the only open-source tool to combine API test-automation, mocks, performance-testing and even UI automation into a single, unified framework. The BDD syntax popularized by Cucumber is language-neutral, and easy for even non-programmers. Assertions and HTML reports are built-in, and you can run tests in parallel for speed.
 
@@ -55,30 +61,26 @@ HTTP response status
 This actual Project , branch Master
 
 ## 5 - Download Jenkins on Docker and run Jenkins ##
-`docker pull jenkins/jenkins`
-
-run jenkins on port 9092 `docker run -p 9092:8080  jenkins/jenkins`
+`docker run -p 8081/8080 -v /var/run/docker.sock:/var/run/docker.sock liatrio/jenkins-alpine`
 
 
 ## 6 - Configure Jenkins ##
-open http://localhost:9092/
+open http://localhost:8081/
 
-Create User
+Login with admin/admin
 
 Create Item Pipeline DemoPipelineTokenAPITestAuto (job)
 
 Go to Configure-> Pipeline (fill the repository and path of jenkinsfile)
 
-![image](https://user-images.githubusercontent.com/13651357/200199449-c8aade96-0689-48d9-a038-be6a87f88b22.png)
+![ererer](https://user-images.githubusercontent.com/13651357/201326159-0309d950-181e-47c0-bd56-85b4d861ebf1.png)
+
 
 ## 7 - Build the job ##
-After it is finish, you will find the report summry in the job #number -> Workspaces-> target -> surefire-reports -> karate-summary.html
-![token creation results](https://user-images.githubusercontent.com/13651357/200199802-81b27ea4-2860-46f6-868d-ed48bf5f9e09.png)
-![user creation results](https://user-images.githubusercontent.com/13651357/200199803-0016ca6e-0d1c-4339-ac93-908d34258e9b.png)
+After it is finish, you will find the report summry in the  /usr/src/app/target/surefire-reports
+![je](https://user-images.githubusercontent.com/13651357/201329932-9a902440-db3d-4aa8-a2f6-91387f1d7efb.png)
 
 
 
 ## Conclusion ##
-This is a sample demo for Apache Karate Framework to test API project
-
-This demo runs all the tests cases, we can add tags in each test case  and run tests cases by tags
+This is a sample demo for Apache Karate Framework to test API project from jenkins on docker.
