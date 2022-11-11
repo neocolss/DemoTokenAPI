@@ -1,7 +1,7 @@
 Feature: E2E Tests for creating tokens
 
   Background: create the base url
-    * url 'http://localhost'
+    * url baseUrl
 
   Scenario: Test E2E 1) Create a token for admin and get 201 status
     Given path '/tokens'

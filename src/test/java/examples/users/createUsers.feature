@@ -1,6 +1,6 @@
 Feature: E2E Tests for creating users
   Background: create the base url
-    * url 'http://localhost'
+    * url baseUrl
 
   Scenario: Test E2E 1) Create a user and get 201 status
     Given path '/tokens'
