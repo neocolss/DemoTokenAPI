@@ -9,7 +9,7 @@ COPY . /usr/src/app
 
 RUN mvn -B -f /tmp/pom.xml -s /usr/share/maven/ref/settings-docker.xml prepare-package -DskipTests
 
-CMD ["mvn", "clean", "test"]
+CMD ["mvn", "clean", "test", "-Dtest=ExamplesTest"]
 
 #RUN ["chmod", "+x", "/usr/src/app/maven_runner.sh"]
 #CMD ["/usr/src/app/maven_runner.sh"]
